@@ -1,0 +1,173 @@
+127.0.0.1 postgres 12345 postgres
+
+
+CREATE TABLE Compuny(
+ id SERIAL PRIMARY KEY,
+ Title varchar(50) NOT NULL
+);
+
+
+CREATE TABLE emploer(
+ id SERIAL PRIMARY KEY,
+ Full_name varchar(70) NOT NULL,
+ Rank varchar(50) NOT NULL,
+ Number_of_group INTEGER REFERENCES Compuny(id)
+);
+
+
+CREATE TABLE Personal_info(
+ id SERIAL PRIMARY KEY,
+ Medcart varchar(50) NOT NULL,
+ zarplata varchar(50) NOT NULL,
+ Bank_detail varchar(50) NOT NULL,
+ emploer_id integer REFERENCES emploer(id)
+);
+
+
+CREATE TABLE Vacations(
+ id SERIAL PRIMARY KEY,
+ start_date date NOT NULL,
+ end_date date NOT NULL,
+ emploer_id integer REFERENCES emploer(id)
+);
+
+
+CREATE TABLE Entry_Big_orders(
+ id SERIAL PRIMARY KEY,
+ Date_of_entry date NOT NULL,
+ Date_end_service date NOT NULL,
+ emploer_id integer REFERENCES emploer(id)
+);
+
+
+CREATE TABLE machine(
+ id SERIAL PRIMARY KEY,
+ Model varchar(50) NOT NULL,
+ Date_of_issue date NOT NULL,
+ emploer_id integer REFERENCES emploer(id)
+);
+
+
+CREATE TABLE Achievement(
+ id SERIAL PRIMARY KEY,
+ Merit varchar(50) NOT NULL,
+ emploer_id integer REFERENCES emploer(id)
+);
+
+
+CREATE TABLE Customers(
+ id SERIAL PRIMARY KEY,
+ Full_name Varchar(50) NOT NULL,
+ Pasport_data varchar(50) NOT NULL
+);
+
+
+CREATE TABLE Big_orders(
+ id SERIAL PRIMARY KEY,
+ Payment INTEGER NOT NULL,
+ Agrement_date date NOT NULL,
+ Expiration_date date NOT NULL,
+ Number_of_group INTEGER REFERENCES Compuny(id),
+ Customer_id INTEGER REFERENCES Customers(id)
+);
+
+
+CREATE TABLE Transport(
+ id SERIAL PRIMARY KEY,
+ Model varchar(50) NOT NULL,
+ Status varchar(50) NOT NULL,
+ Number_of_group INTEGER REFERENCES Compuny(id)
+);
+
+------------------------
+
+------- INSERT --------
+
+------------------------
+
+INSERT INTO Compuny VALUES
+ (DEFAULT, 'Coffe sity'),
+ (DEFAULT, 'Monunig day'),
+ (DEFAULT, 'Big Coffe');
+
+SELECT * FROM Compuny;
+
+
+INSERT INTO emploer VALUES
+ (DEFAULT, 'Билли', 'Уборщик', 1),
+ (DEFAULT, 'Евгений ', 'Уборщик', 1),
+ (DEFAULT, 'Артём', 'Кассир', 2),
+ (DEFAULT, 'Артес', 'Кассир', 3),
+ (DEFAULT, 'Пётр', 'Кассир', 3),
+ (DEFAULT, 'Вася', 'Кассир', 2);
+ 
+SELECT * FROM emploer;
+
+
+INSERT INTO personal_info VALUES
+ (DEFAULT, '343245', '543463', '45367345', 1),
+ (DEFAULT, '345346', '345321', '67547443', 2),
+ (DEFAULT, '234627', '234674', '84563422', 3),
+ (DEFAULT, '343245', '543463', '45367345', 4),
+ (DEFAULT, '654745', '223432', '23423566', 5),
+ (DEFAULT, '234311', '665742', '44444444', 6);
+
+SELECT * FROM personal_info;
+
+
+INSERT INTO entry_Big_orders VALUES
+ (DEFAULT, '1998-06-12', '2033-06-13', 1),
+ (DEFAULT, '2004-12-12', '2036-12-13', 3),
+ (DEFAULT, '1960-07-01', '2077-07-01', 2),
+ (DEFAULT, '2001-01-11', '2033-06-13', 4),
+ (DEFAULT, '1999-11-23', '2034-06-24', 5),
+ (DEFAULT, '1998-04-12', '2033-04-11', 6);
+
+SELECT * FROM entry_Big_orders;
+
+
+INSERT INTO vacations VALUES
+ (DEFAULT, '2004-12-12', '2005-02-13', 3),
+ (DEFAULT, '2004-12-12', '2005-02-13', 1);
+ 
+SELECT * FROM vacations;
+
+
+INSERT INTO machine VALUES
+ (DEFAULT, 'N-word', '2023-07-12', 1),
+ (DEFAULT, 'Mak01', '2021-07-01', 2),
+ (DEFAULT, 'Genshn02', '2020-05-12', 3);
+ 
+SELECT * FROM machine;
+
+
+INSERT INTO achievement VALUES
+ (DEFAULT, 'Лучший рейтинг', 2),
+ (DEFAULT, 'Лучшая выручка', 1);
+
+SELECT * FROM achievement;
+
+
+INSERT INTO Transport VALUES
+ (DEFAULT, 'урус', 'готов', 1),
+ (DEFAULT, 'мотоцикл', 'готов', 2),
+ (DEFAULT, 'пешийе', 'в планах', 3);
+
+SELECT * FROM Transport;
+
+
+INSERT INTO Customers VALUES
+ (DEFAULT, 'Жони СереброРука', '3423517'),
+ (DEFAULT, 'Вася Васев', '2677421');
+
+SELECT * FROM Customers;
+
+
+INSERT INTO Big_orders VALUES
+ (DEFAULT, 100, '20023-11-11', '2023-10-11', 3, 2),
+ (DEFAULT, 100, '2023-02-24', '2023-06-23', 1, 1);
+
+SELECT * FROM Big_orders;
+
+
+drop table customers 
